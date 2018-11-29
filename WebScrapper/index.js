@@ -11,11 +11,12 @@ function getSpongeobQuotes(link) {
             return line.startsWith('SpongeBob:') || line.startsWith('SpongeBob SquarePants:');
         }).map(quote => {
             const q = quote.replace('SpongeBob: ', '').replace('SpongeBob SquarePants: ', '');
-            return removeBrackets(q).trim();
+            return removeBrackets(q).trim().split(/(\.|\?|\!)/g).join('\n');
         });
         return quotes;
     });
 }
+
 function getHtml(link) {
     return new Promise(function(resolve, reject) {
         http.get(link, (response) => {
@@ -59,8 +60,8 @@ const nameFromLink = (link) => {
 }
 async function main() {
     const transcriptLinks = await getTranscriptLinks();
-    for (let link of transcriptLinks) {
-        const episodeName = nameFromLink(link)
-        await storeQuotesFromLink(link, episodeName);
-    }
+    console.log(nameFromLink(transcriptLinks[0]));
+    storeQuotesFromLink(transcriptLinks[0], nameFromLink(transcriptLinks[0]));
 }
+
+main();

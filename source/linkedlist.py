@@ -15,14 +15,14 @@ class Node(object):
 
 class LinkedList(object):
 
-    def __init__(self, items=None):
+    def __init__(self, items=[]):
         """Initialize this linked list and append the given items, if any."""
         self.head = None  # First node
         self.tail = None  # Last node
+        self.size = 0
         # Append given items
-        if items is not None:
-            for item in items:
-                self.append(item)
+        for item in items:
+            self.append(item)
 
     def __str__(self):
         """Return a formatted string representation of this linked list."""
@@ -50,40 +50,70 @@ class LinkedList(object):
 
     def is_empty(self):
         """Return a boolean indicating whether this linked list is empty."""
-        return self.head is None
+        return self.size == 0
 
     def length(self):
         """Return the length of this linked list by traversing its nodes.
         TODO: Running time: O(???) Why and under what conditions?"""
-        # TODO: Loop through all nodes and count one for each
+        return self.size
 
     def append(self, item):
         """Insert the given item at the tail of this linked list.
-        TODO: Running time: O(???) Why and under what conditions?"""
-        # TODO: Create new node to hold given item
-        # TODO: Append node after tail, if it exists
+        TODO: Running time: O(1) Why and under what conditions?"""
+        newNode = Node(item)
+        if self.is_empty():
+            self.head = newNode
+            self.tail = newNode
+        else:
+            self.tail.next = newNode
+            self.tail = newNode
+        self.size += 1
 
     def prepend(self, item):
         """Insert the given item at the head of this linked list.
-        TODO: Running time: O(???) Why and under what conditions?"""
-        # TODO: Create new node to hold given item
-        # TODO: Prepend node before head, if it exists
+        TODO: Running time: O(1) Why and under what conditions?"""
+        newNode = Node(item)
+        if self.head == None:
+            self.head = newNode
+            self.tail = newNode
+        else:
+            newNode.next = self.head
+            self.head = newNode
+        self.size += 1
 
     def find(self, quality):
         """Return an item from this linked list satisfying the given quality.
-        TODO: Best case running time: O(???) Why and under what conditions?
-        TODO: Worst case running time: O(???) Why and under what conditions?"""
-        # TODO: Loop through all nodes to find item where quality(item) is True
-        # TODO: Check if node's data satisfies given quality function
+           Best case running time: O(0) If head has the quality.
+           Worst case running time: O(size) If tail has the quality"""
+        curr = self.head
+        while curr:
+            if quality(curr.data):
+                return curr.data
+            curr = curr.next
+        return None
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
-        TODO: Best case running time: O(???) Why and under what conditions?
-        TODO: Worst case running time: O(???) Why and under what conditions?"""
-        # TODO: Loop through all nodes to find one whose data matches given item
-        # TODO: Update previous node to skip around node with matching data
-        # TODO: Otherwise raise error to tell user that delete has failed
-        # Hint: raise ValueError('Item not found: {}'.format(item))
+           Best case running time: O(0) If head has the quality.
+           Worst case running time: O(size) If tail has the quality"""
+        prev = None
+        curr = self.head
+        while curr:
+            if curr.data == item:
+                if prev == None:
+                    self.head = self.head.next
+                else:
+                    prev.next = curr.next
+                    if prev.next is None:
+                        self.tail = prev
+                # Thank you Dylan Finn for the following if statement
+                if self.tail is not None and self.tail.data is item:
+                    self.tail = None
+                self.size -= 1
+                return
+            prev = curr
+            curr = curr.next
+        raise ValueError("Couldn't find item in list.")
 
 
 def test_linked_list():
@@ -100,8 +130,7 @@ def test_linked_list():
     print('tail: {}'.format(ll.tail))
     print('length: {}'.format(ll.length()))
 
-    # Enable this after implementing delete method
-    delete_implemented = False
+    delete_implemented = True
     if delete_implemented:
         print('\nTesting delete:')
         for item in ['B', 'C', 'A']:

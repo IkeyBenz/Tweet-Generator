@@ -1,13 +1,14 @@
 from dictogram import Dictogram
 from random import randint
+# [one, fish, ....]
 
 class MarkovChain(dict):
     def __init__(self, wordsLst):
         super(MarkovChain, self).__init__()
         self.wordFrequencies = Dictogram(wordsLst)
-        self._comile(wordsLst)
+        self.compile(wordsLst)
 
-    def _comile(self, words):
+    def compile(self, words):
         for i in range(len(words)-1):
             if words[i] not in self:
                 self[words[i]] = Dictogram()
@@ -31,3 +32,4 @@ class MarkovChain(dict):
         return ' '.join(words)
 
 
+# spongebob could use the food anyways you my pet snail say that.

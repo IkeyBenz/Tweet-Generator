@@ -10,7 +10,7 @@ def getAllWords():
         
 def getWordsFrom(filePath):
     text = open(filePath, 'r').read()
-    charactersToRemove = ['\n', '.', ',', '!', '?', ':']
+    charactersToRemove = ['\n', ',', ':']
     for c in charactersToRemove:
         text = ' '.join(text.split(c))
     withoutSpaces = list(filter(lambda w: w != '', text.split(' ')))
