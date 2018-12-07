@@ -55,7 +55,7 @@ class HashTable(object):
 
     def contains(self, key):
         """Return True if this hash table contains the given key, or False.
-           Running time: O(1) Amortized"""
+           Running time: O(n/b) amortized."""
         try:
             self.get(key)
             return True
@@ -64,7 +64,7 @@ class HashTable(object):
 
     def get(self, key):
         """Return the value associated with the given key, or raise KeyError.
-           Running time: O(1) On average. Since most buckets will contain one item."""
+           Running time: O(n/b) amortized."""
         index = self._bucket_index(key)
         for item in self.buckets[index].items():
             if item[0] == key:

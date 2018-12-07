@@ -1,0 +1,11 @@
+[
+  "hashtable_test.py::HashTableTest::test_contains",
+  "hashtable_test.py::HashTableTest::test_delete",
+  "hashtable_test.py::HashTableTest::test_init",
+  "hashtable_test.py::HashTableTest::test_items",
+  "hashtable_test.py::HashTableTest::test_keys",
+  "hashtable_test.py::HashTableTest::test_length",
+  "hashtable_test.py::HashTableTest::test_set_and_get",
+  "hashtable_test.py::HashTableTest::test_set_twice_and_get",
+  "hashtable_test.py::HashTableTest::test_values"
+]
