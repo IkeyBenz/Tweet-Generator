@@ -2,27 +2,39 @@ from markovChain import MarkovChain
 from os import listdir, path
 
 
-def getAllWords():
+def getAllSentences():
     transcriptsDir = '/Users/IkeyBenz/Code/MakeSchool/CS-1.2/ClassTweetGenerator/WebScrapper/Transcripts'
-    words = []
+    sentences = []
     for transcript in listdir(transcriptsDir):
-        words.extend(getWordsFrom(path.join(transcriptsDir, transcript)))
-    return words
+        sentences.extend(getSentencesFrom(
+            path.join(transcriptsDir, transcript)))
+    return sentences
 
 
-def getWordsFrom(filePath):
-    text = open(filePath, 'r').read()
-    charactersToRemove = ['\n', ',', ':']
-    for c in charactersToRemove:
-        text = ' '.join(text.split(c))
-    withoutSpaces = list(filter(lambda w: w != '', text.split(' ')))
-    lowerCase = list(map(lambda w: w.lower(), withoutSpaces))
-    return lowerCase
+def isEndOfSentence(word):
+    if word == 'mr.' or word == 'mrs.' or word == '':
+        return False
+    if word[-1] in '?!.':
+        return True
+    return False
 
 
-generator = MarkovChain(getAllWords())
+def getSentencesFrom(filePath):
+    lines = [l.lower() for l in open(filePath, 'r').read().split('\n')]
+    sentences = []
+    currSentence = []
+    for line in lines:
+        for word in line.split(' '):
+            currSentence.append(word)
+            if isEndOfSentence(word):
+                sentences.append(' '.join(currSentence))
+                currSentence = []
+    return sentences
+
+
+generator = MarkovChain(getAllSentences())
 for _ in range(10):
-    print(generator.makeSentence(12) + '.')
+    print(generator.makeSentence())
 
 
 '''
