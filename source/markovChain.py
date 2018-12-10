@@ -1,6 +1,5 @@
 from dictogram import Dictogram
 import random
-# [one, fish, ....]
 
 
 class MarkovChain(dict):

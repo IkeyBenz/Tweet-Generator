@@ -134,4 +134,5 @@ venv.bak/
 # vscode
 .vscode
 
-WebScrapper
+Transcripts
+node_modules

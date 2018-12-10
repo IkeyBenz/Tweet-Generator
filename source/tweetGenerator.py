@@ -33,22 +33,6 @@ def getSentencesFrom(filePath):
 
 
 generator = MarkovChain(getAllSentences())
-for _ in range(10):
-    print(generator.makeSentence())
+with open('/Users/IkeyBenz/Code/Python/FlaskApp/app/markov.py', 'w') as out:
+    out.write('markovChain = {}\n\nsentenceStarters = {}'.format(generator, generator.sentenceStarters))
 
-
-'''
-RegEx:
-it's all about patterns
-regular expressions work with strings
-strings are just sequences of characters (bytes)
-
-You can ask
-1) if the pattern is there
-2) how mant times
-3) where does the pattern start
-4) where does it occur
-5) what is before it and what is after it
-
-
-'''
