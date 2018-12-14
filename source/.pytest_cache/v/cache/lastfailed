@@ -1,1 +1,4 @@
-{}
+{
+  "listogram_test.py::ListogramTest::test_add_count": true,
+  "listogram_test.py::ListogramTest::test_entries": true
+}
